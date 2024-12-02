@@ -1,0 +1,23 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<div class="mt-5">
+  <h2 class="text-center" style="color: #660000;">
+    <a href="{% url 'learning_logs:topic' topic.id %}" style="color: #660000; text-decoration: none;">{{ topic }}</a>
+  </h2>
+
+  <div class="text-center mt-4">
+    <h4 style="color: #660000;">Редактировать запись</h4>
+  </div>
+
+  <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post' class="mt-4">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.as_p }}
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" style="background-color: #660000;border-color: #660000;">Сохранить изменения</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

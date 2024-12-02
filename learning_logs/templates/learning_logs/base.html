@@ -1,0 +1,90 @@
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Learning Log</title>
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+	<style>
+		body {
+			font-family: Georgia, serif !important;
+			background-color: #f8f9fa;
+		}
+		.navbar {
+			background-color: #660000;
+		}
+		.navbar-brand, .nav-link, .navbar-text {
+			color: #ffffff !important;
+		}
+		.btn-outline-dark {
+			color: #ffffff !important;
+			border-color: #ffffff;
+		}
+		.btn-outline-dark:hover {
+			background-color: #ffffff;
+			color: #660000 !important;
+		}
+		.container {
+			background-color: #ffffff;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 20px;
+		}
+		.navbar-toggler {
+			border-color: #ffffff;
+		}
+		.navbar-toggler-icon {
+			background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+		}
+		.border-bottom {
+			border-color: #660000 !important;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark mb-4 border">
+	<a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+		Learning Log</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span></button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'learning_logs:topics' %}">Topics</a></li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			{% if user.is_authenticated %}
+				<li class="nav-item">
+					<span class="navbar-text mr-2">Hello, {{ user.username }}.</span>
+				</li>
+				<form id="logout-form" action="{% url 'users:logout' %}" method="POST">
+					{% csrf_token %}
+					<button class="btn btn-outline-dark" type="submit">Log out</button>
+				</form>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:register' %}">Register</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>
+<main role="main" class="container">
+	<div class="pb-2 mb-2 border-bottom" style="color: #660000;">
+		{% block page_header %}{% endblock page_header %}
+	</div>
+	<div>
+		{% block content %}{% endblock content %}
+	</div>
+</main>
+</body>
+</html>

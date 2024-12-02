@@ -1,0 +1,24 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+<div class="mt-5">
+  <h2 class="text-center" style="color: #660000;">{{ topic }}</h2>
+  <div class="text-center mt-3">
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary" style="background-color: #660000;border-color: #660000;">Добавить новую запись</a>
+  </div>
+
+  <ul class="list-group mt-4">
+    {% for entry in entries %}
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <p class="mb-1 text-muted">{{ entry.date_added|date:'M d, Y H:i' }}</p>
+          <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-outline-secondary btn-sm" style="background-color: #660000; color: white; border-color: #660000;">Изменить запись</a>
+        </div>
+        <p class="mb-1" style="color: #660000;">{{ entry.text|linebreaks }}</p>
+      </li>
+    {% empty %}
+      <li class="list-group-item text-center">По этой теме пока нет записей</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock content %}

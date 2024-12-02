@@ -1,0 +1,19 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+<div class="mt-5">
+  <h2 class="text-center" style="color: #660000;">Темы</h2>
+  <ul class="list-group mt-4">
+    {% for topic in topics %}
+        <li class="list-group-item">
+            <a href="{% url 'learning_logs:topic' topic.id %}" style="color: #660000; font-weight: bold;">{{ topic }}</a>
+        </li>
+    {% empty %}
+      <li class="list-group-item text-center">No topics ¯\_(ツ)_/¯</li>
+    {% endfor %}
+  </ul>
+  <div class="text-center mt-4">
+    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary" style="background-color: #660000;border-color: #660000;">Добавить новую тему</a>
+  </div>
+</div>
+{% endblock content %}
